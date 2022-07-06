@@ -5,6 +5,7 @@ const Config = {
     SmartContractId: 8749786126809286749n,
     SmartContractRS: "",
     authorisedCodeHash: 5817622329198284865n,
+    assetId: "15297368334901195317",
     serverAlternatives: [
         "https://cryptodefrag.com:6876",
         "https://europe3.testnet.signum.network",
@@ -286,7 +287,7 @@ async function activateWalletXT(silent) {
 async function evtLinkWithXT () {
     await activateWalletXT(false);
     updateLinkedAccount();
-    updatePlayerContract();
+    updatePlayerDetailsAndContract();
 }
 
 function evtLinkAccount() {
@@ -304,7 +305,7 @@ function evtLinkAccount() {
     localStorage.setItem('userRS', userRS);
     localStorage.setItem('userId', userId.toString(10));
     updateLinkedAccount();
-    updatePlayerContract();
+    updatePlayerDetailsAndContract();
 }
 
 function evtUnlinkAccount() {
@@ -316,10 +317,10 @@ function evtUnlinkAccount() {
     Global.walletResponse = undefined;
     document.getElementById('rsToLink').value = '';
     updateLinkedAccount();
-    updatePlayerContract();
+    updatePlayerDetailsAndContract();
 }
 
-async function updatePlayerContract() {
+async function updatePlayerDetailsAndContract() {
     const currentUser = localStorage.getItem('userId')
     if (currentUser === null) {
         document.getElementById('contract_found').style.display = 'none'
@@ -327,6 +328,21 @@ async function updatePlayerContract() {
         return
     }
     
+    let UserAccount
+    try {
+        UserAccount = await Global.signumJSAPI.account.getAccount({ accountId: currentUser })
+    } catch (err) {
+        UserAccount = undefined
+    }
+    if (UserAccount?.account !== undefined) {
+        document.getElementById('player_name').innerText = UserAccount.name
+        let tmgAssetInfo = UserAccount.assetBalances.find((Obj) => Obj.asset === Config.assetId)
+        if (tmgAssetInfo !== undefined) {
+            document.getElementById('player_tmg_quantity').innerText = Number(tmgAssetInfo.balanceQNT)/100
+        } else {
+            document.getElementById('player_tmg_quantity').innerText = "0"
+        }
+    }
     let UserContract
     try {
         UserContract = await Global.signumJSAPI.contract.getContractsByAccount({
@@ -458,7 +474,7 @@ function processData(json_text) {
     Picker.distributeBalance.currentAvailableBalance = Variables.longs[34]
 
     updatePickerDetails()
-    updatePlayerContract()
+    updatePlayerDetailsAndContract()
 }
 
 function updatePickerDetails() {
