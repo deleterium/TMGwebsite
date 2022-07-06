@@ -88,6 +88,7 @@ window.onload = function () {
     document.getElementById("btn_add_balance").addEventListener('click',evtAddBalance);
     document.getElementById("btn_change_intensity").addEventListener('click',evtChangeIntensity);
     document.getElementById("btn_stop").addEventListener('click',evtStop);
+    document.getElementById("btn_new_node").addEventListener('click',evtNewNode);
     
 
     const spans = document.getElementsByName("scid");
@@ -95,7 +96,7 @@ window.onload = function () {
         dom.innerText = Config.SmartContractRS;
     })
 
-    // loadOptionsFromLocalStorage();
+    document.getElementById("nodes_list").innerHTML = Config.serverAlternatives.join('<br>')
 
     // Update user detail
     if (localStorage.getItem('userHasXT') === 'true') {
@@ -106,6 +107,15 @@ window.onload = function () {
     } else {
         updateLinkedAccount()
     }    
+}
+
+function evtNewNode() {
+    let newNode = document.getElementById("ipt_new_node").value
+    if (!newNode.startsWith('http')) {
+        newNode = 'https://' + newNode
+    }
+    localStorage.setItem("preferedNode", newNode)
+    location.reload()
 }
 
 async function evtAddBalance() {
@@ -134,7 +144,7 @@ async function evtAddBalance() {
             feePlanck: "1000000"
         })
         const ConfirmResponse = await Global.wallet.confirm(UnsignedBytes.unsignedTransactionBytes)
-        alert(`Transaction broadcasted! Id: ${ConfirmResponse.transactionId}.`);
+        alert(`Transaction broadcasted! Id: ${ConfirmResponse.transactionId}. Balance will be added in 8 minutes.`);
     } catch (err) {
         alert(`Transaction failed.\n\n${err.message}`);
     }
@@ -185,7 +195,7 @@ async function evtChangeIntensity() {
             feePlanck: "1000000"
         })
         const ConfirmResponse = await Global.wallet.confirm(UnsignedBytes.unsignedTransactionBytes)
-        alert(`Transaction broadcasted! Id: ${ConfirmResponse.transactionId}.`);
+        alert(`Transaction broadcasted! Id: ${ConfirmResponse.transactionId}. Transaction will be processed between 8 minutes and 1 hour.`);
     } catch (err) {
         alert(`Transaction failed.\n\n${err.message}`);
     }
@@ -341,7 +351,8 @@ async function updatePlayerContract() {
         const Variables = decodeMemory(Global.UserContract.machineData);
         const currBalance = Number(Global.UserContract.balanceNQT)/100000000
         const intensity = Number(Variables.longs[18])/100000000
-        const remainingHours = currBalance / intensity
+        let remainingHours = currBalance / intensity
+        if (isNaN(remainingHours)) remainingHours = 0
         document.getElementById('my_contract_rs').innerText = Global.UserContract.atRS
         document.getElementById('my_contract_balance').innerText = currBalance.toFixed(2)
         document.getElementById('my_contract_intensity').innerText = intensity.toFixed(2)
@@ -418,8 +429,8 @@ function processData(json_text) {
         nodeHost: Global.server
     });
 
-    // localStorage.setItem("preferedNode", Global.server);
-    // document.getElementById("show_current_node").innerText = Global.server;
+    localStorage.setItem("preferedNode", Global.server);
+    document.getElementById("current_node").innerText = Global.server;
 
     const Variables = decodeMemory(contractInfo.machineData);
 
