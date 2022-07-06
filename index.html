@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="keywords" content="mining game signum blockchain smart contract">
+    <meta name="description" content="">
+    <meta name="author" content="Rui Santana">
+    <link rel="icon" type="image/png" sizes="16x16" href="favicon-16.png">
+    <link rel="icon" type="image/png" sizes="24x24" href="favicon-24.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="favicon.png">
+    <link rel="icon" type="image/png" sizes="256x256" href="favicon-256.png">
+    <style type="text/css" media="all">
+    </style>
+    <meta property="og:title" content="The Mining Game" />
+    <meta property="og:image" content="https://deleterium.info/TMG/mediathumb.png" />
+    <meta property="og:description" content="Smart contract mining game" />
+    <meta property="og:url" content="https://deleterium.info/TMG/" />
+    <meta property="og:image:width" content="785" />
+    <meta property="og:image:height" content="500" />
+    <meta property="og:type" content="website" />
+    <title>The Mining Game</title>
+    <script src="index.js?refresh=0305"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@signumjs/util/dist/signumjs.util.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@signumjs/core/dist/signumjs.min.js"></script>
+    <script src='https://cdn.jsdelivr.net/npm/@signumjs/wallets/dist/signumjs.wallets.min.js'></script>
+
+</head>
+<body>
+
+    <div class="box">
+        <h2>Current height:</h2>
+        <strong>#<output id="current_height">?</output></strong><br>
+        Best deadline: <output id="best_deadline">?</output><br>
+        Best sender: <output id="best_sender">?</output>
+    </div>
+    <div class="box">
+        <h2>Last height:</h2>
+        Total mining intensity: <output id="last_mining_intensity">?</output> Signa<br>
+        Winner account:  <output id="last_winner_account">?</output><br>
+        Winner deadline: <output id="last_winner_deadline">?</output><br>
+        On Signum blockheight: <output id="last_forging_blockheight">?</output>
+    </div>
+    <div class="box" name="linked">
+        <h2>My miner:</h2>
+        <div id="contract_found" style="display: none;">
+        Smart Contract: <output id="my_contract_rs">?</output><br>
+        Balance: <output id="my_contract_balance">?</output><br>
+        Current mining intensity: <output id="my_contract_intensity">?</output><br>
+        Enough for: <output id="my_contract_remaining">?</output><br>
+        Actions: <button id="btn_add_balance">Add</button> <button id="btn_change_intensity">Change intensity</button> <button id="btn_stop">Stop</button> 
+        </div>
+        <div id="contract_not_found" style="display: none;">
+            No miner found... <button id="btn_deploy_miner">Deploy now</button>
+        </div>
+    </div>
+    <div class="box">
+        <h2>Your account:</h2>
+        <div name="unlinked">Account...: <input type="text" style="width: 25ch;" id="rsToLink">&nbsp;&nbsp;<button id="btn_link_account">Link</button>&nbsp;&nbsp;<button id="btn_link_with_xt">Wallet XT</button></div>
+        <div name="linked">Account...: <span class="white-text" name="playerRS"></span>&nbsp;&nbsp;<button id="btn_unlink_account">Unlink</button></div>
+    </div>
+    <div class="box">
+        <h2>Options:</h2>
+        TODO
+    </div>
+
+</body>
+</html>
