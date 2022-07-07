@@ -21,7 +21,7 @@
     <meta property="og:type" content="website" />
     <title>The Mining Game</title>
     <script src="index.js?refresh=0305"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@signumjs/util/dist/signumjs.util.min.js"></script>
+    <!-- <script src="https://cdn.jsdelivr.net/npm/@signumjs/util/dist/signumjs.util.min.js"></script> -->
     <script src="https://cdn.jsdelivr.net/npm/@signumjs/core/dist/signumjs.min.js"></script>
     <script src='https://cdn.jsdelivr.net/npm/@signumjs/wallets/dist/signumjs.wallets.min.js'></script>
 
@@ -29,17 +29,24 @@
 <body>
 
     <div class="box">
-        <h2>Current height:</h2>
-        <strong>#<output id="current_height">?</output></strong><br>
-        Best deadline: <output id="best_deadline">?</output><br>
-        Best sender: <output id="best_sender">?</output>
+        <h2>TMG height #<output id="current_height">?</output>:</h2>
+        Best contract so far: <output id="best_sender">?</output><br>
+        Best deadline so far: <output id="best_deadline">?</output><br>
     </div>
     <div class="box">
-        <h2>Last height:</h2>
+        <h2>Last height details:</h2>
         Total mining intensity: <output id="last_mining_intensity">?</output> Signa<br>
         Winner account:  <output id="last_winner_account">?</output><br>
         Winner deadline: <output id="last_winner_deadline">?</output><br>
         On Signum blockheight: <output id="last_forging_blockheight">?</output>
+    </div>
+    <div class="box">
+        <h2>My account:</h2>
+        <div name="unlinked">Account: <input type="text" style="width: 25ch;" id="rsToLink">&nbsp;&nbsp;<button id="btn_link_account">Link</button>&nbsp;&nbsp;<button id="btn_link_with_xt">Wallet XT</button></div>
+        <div name="linked">
+            Account: <span class="white-text" name="playerRS"></span> - <output id="player_name"></output>&nbsp;&nbsp;<button id="btn_unlink_account">Unlink</button><br>
+            Balance: <output id="player_tmg_quantity"></output> TMG
+        </div>
     </div>
     <div class="box" name="linked">
         <h2>My miner:</h2>
@@ -47,19 +54,11 @@
         Smart Contract: <output id="my_contract_rs">?</output><br>
         Balance: <output id="my_contract_balance">?</output><br>
         Current mining intensity: <output id="my_contract_intensity">?</output><br>
-        Enough for: <output id="my_contract_remaining">?</output><br>
+        Good for: <output id="my_contract_remaining">?</output><br>
         Actions: <button id="btn_add_balance">Add</button> <button id="btn_change_intensity">Change intensity</button> <button id="btn_stop">Stop</button> 
         </div>
         <div id="contract_not_found" style="display: none;">
             No miner found... <button id="btn_deploy_miner">Deploy now</button>
-        </div>
-    </div>
-    <div class="box">
-        <h2>Your account:</h2>
-        <div name="unlinked">Account: <input type="text" style="width: 25ch;" id="rsToLink">&nbsp;&nbsp;<button id="btn_link_account">Link</button>&nbsp;&nbsp;<button id="btn_link_with_xt">Wallet XT</button></div>
-        <div name="linked">
-            Account: <span class="white-text" name="playerRS"></span> - <output id="player_name"></output>&nbsp;&nbsp;<button id="btn_unlink_account">Unlink</button><br>
-            Balance: <output id="player_tmg_quantity"></output> TMG
         </div>
     </div>
     <div class="box">
@@ -68,6 +67,9 @@
         Change node: <input type="text" style="width: 25ch;" id="ipt_new_node"> <button id="btn_new_node">Change</button><br>
         Nodes list: <br>
         <output id="nodes_list">?</output><br>
+    </div>
+    <div class="box">
+        <h2>More:</h2>Know more about TMG at <a href="https://github.com/deleterium/SmartC/blob/main/docs/commemorative/v2.0_The_Mining_Game.md">SmartC commemorative contract</a>.
     </div>
 
 </body>

@@ -320,6 +320,18 @@ function evtUnlinkAccount() {
     updatePlayerDetailsAndContract();
 }
 
+function getTMGFromUser(UserAccount) {
+    if (UserAccount === undefined || UserAccount.assetBalances === undefined) {
+        return 0
+    }
+    for (let i = 0; i< UserAccount.assetBalances.length; i++) {
+        if (UserAccount.assetBalances[i].asset === Config.assetId) {
+            return Number(UserAccount.assetBalances[i].balanceQNT)/100
+        }
+    }
+    return 0
+}
+
 async function updatePlayerDetailsAndContract() {
     const currentUser = localStorage.getItem('userId')
     if (currentUser === null) {
@@ -334,15 +346,10 @@ async function updatePlayerDetailsAndContract() {
     } catch (err) {
         UserAccount = undefined
     }
-    if (UserAccount?.account !== undefined) {
-        document.getElementById('player_name').innerText = UserAccount.name
-        let tmgAssetInfo = UserAccount.assetBalances.find((Obj) => Obj.asset === Config.assetId)
-        if (tmgAssetInfo !== undefined) {
-            document.getElementById('player_tmg_quantity').innerText = Number(tmgAssetInfo.balanceQNT)/100
-        } else {
-            document.getElementById('player_tmg_quantity').innerText = "0"
-        }
-    }
+    document.getElementById('player_name').innerText = UserAccount?.name ?? ''
+    let tmgAssetQuantity = getTMGFromUser(UserAccount)
+    document.getElementById('player_tmg_quantity').innerText = tmgAssetQuantity
+
     let UserContract
     try {
         UserContract = await Global.signumJSAPI.contract.getContractsByAccount({
