@@ -10,6 +10,7 @@
     <link rel="icon" type="image/png" sizes="24x24" href="favicon-24.png">
     <link rel="icon" type="image/png" sizes="32x32" href="favicon.png">
     <link rel="icon" type="image/png" sizes="256x256" href="favicon-256.png">
+    <link rel="stylesheet" type="text/css" href="./style.css">
     <style type="text/css" media="all">
     </style>
     <meta property="og:title" content="The Mining Game" />
@@ -28,32 +29,50 @@
 </head>
 <body>
 
-    <div class="box">
-        <h2>TMG height #<output id="current_height">?</output>:</h2>
-        Best contract so far: <output id="best_sender">?</output><br>
-        Best deadline so far: <output id="best_deadline">?</output><br>
+    <div id="home"></div>
+    <header>
+        <div ><img src="TMGlogo.png" width="32px"></div>
+        <div class="header_hide"> The Mining Game&nbsp;&nbsp;</div>
+        <div ><a href="#home">Top</a></div>
+        <div ><a href="#my_account">My&nbsp;account</a></div>
+        <div ><a href="#options">Options</a></div>
+    </header>
+    <div class="box pink">
+        <h2>Current height</h2>
+        <div class="block_container">
+        <div class="block">Height<br>#<output id="current_height">?</output></div>
+        <div class="block">Best miner<br><output id="best_sender">?</output></div>
+        <div class="block">Best deadline<br><output id="best_deadline">?</output> bits</div>
+        </div>
     </div>
-    <div class="box">
-        <h2>Last height details:</h2>
-        Total mining intensity: <output id="last_mining_intensity">?</output> Signa<br>
-        Winner account:  <output id="last_winner_account">?</output><br>
-        Winner deadline: <output id="last_winner_deadline">?</output><br>
-        On Signum blockheight: <output id="last_forging_blockheight">?</output>
+    <div class="box pink">
+        <h2>Last height</h2>
+        <div class="block_container">
+            <div class="block">Overall mining intensity<br><output id="last_mining_intensity">?</output> Signa</div>
+            <div class="block">Winner account<br><output id="last_winner_account">?</output></div>
+            <div class="block">Winner deadline<br><output id="last_winner_deadline">?</output> bits</div>
+            <div class="block">On Signum blockheight<br><output id="last_forging_blockheight">?</output></div>
+        </div>
     </div>
+    <div id="my_account" class="h_spacer">&nbsp;</div>
     <div class="box">
-        <h2>My account:</h2>
-        <div name="unlinked">Account: <input type="text" style="width: 25ch;" id="rsToLink">&nbsp;&nbsp;<button id="btn_link_account">Link</button>&nbsp;&nbsp;<button id="btn_link_with_xt">Wallet XT</button></div>
+        <h2>My account</h2>
+        <div name="unlinked">Account:<br>
+        <input type="text" placeholder="S-AAAA-BBBB-CCCC-DDDDD" class="wide" id="rsToLink"><br>
+        <button id="btn_link_account"  class="wide">Manual link</button><br>
+        <button id="btn_link_with_xt" class="wide">Easy link with Wallet XT</button></div>
         <div name="linked">
-            Account: <span class="white-text" name="playerRS"></span> - <output id="player_name"></output>&nbsp;&nbsp;<button id="btn_unlink_account">Unlink</button><br>
-            Balance: <output id="player_tmg_quantity"></output> TMG
+            Welcome, <span class="output" name="playerRS"></span> - <output id="player_name"></output><br>
+            Balance: <output id="player_tmg_quantity"></output> TMG<br>
+            <button id="btn_unlink_account" class="wide">Unlink</button>
         </div>
     </div>
     <div class="box" name="linked">
-        <h2>My miner:</h2>
+        <h2>My miner</h2>
         <div id="contract_found" style="display: none;">
         Smart Contract: <output id="my_contract_rs">?</output><br>
-        Balance: <output id="my_contract_balance">?</output><br>
-        Current mining intensity: <output id="my_contract_intensity">?</output><br>
+        Balance: <output id="my_contract_balance">?</output> Signa<br>
+        Current mining intensity: <output id="my_contract_intensity">?</output> Signa<br>
         Good for: <output id="my_contract_remaining">?</output><br>
         Actions: <button id="btn_add_balance">Add</button> <button id="btn_change_intensity">Change intensity</button> <button id="btn_stop">Stop</button> 
         </div>
@@ -61,15 +80,27 @@
             No miner found... <button id="btn_deploy_miner">Deploy now</button>
         </div>
     </div>
+    <div id="options" class="h_spacer">&nbsp;</div>
     <div class="box">
-        <h2>Options:</h2>
-        Current node: <output id="current_node">?</output><br>
-        Change node: <input type="text" style="width: 25ch;" id="ipt_new_node"> <button id="btn_new_node">Change</button><br>
-        Nodes list: <br>
+        <h2>Options</h2>
+        Usin node <output id="current_node">?</output><br>
+        Change node to:<br>
+        <input type="text" class="wide" id="ipt_new_node" placeholder="https://prefered.node"><br>
+        <button id="btn_new_node" class="wide">Change</button><br>
+        Helping nodes list: <br>
         <output id="nodes_list">?</output><br>
     </div>
     <div class="box">
-        <h2>More:</h2>Know more about TMG at <a href="https://github.com/deleterium/SmartC/blob/main/docs/commemorative/v2.0_The_Mining_Game.md">SmartC commemorative contract</a>.
+        <h2>More</h2>Know more about TMG at <a href="https://github.com/deleterium/SmartC/blob/main/docs/commemorative/v2.0_The_Mining_Game.md">SmartC commemorative contract</a>.
+    </div>
+    <div class="end">
+        <br>
+        <a href="https://www.signum.network/"><img src="./powered.svg" height="32px"></a>&nbsp;&nbsp;
+        <a href="https://www.npmjs.com/package/smartc-signum-compiler"><img src="./smartc-logo.svg" height="32px"></a>&nbsp;&nbsp;
+        <a href="https://github.com/signum-network/signumjs#readme"><img src="./Signum_Badge_JS.svg" height="32px"></a>&nbsp;&nbsp;
+        <a href="https://github.com/deleterium/TMGwebsite"><svg focusable="false" fill="white" aria-hidden="true" height="32px" viewBox="0 0 24 24" data-testid="GitHubIcon"><path d="M12 1.27a11 11 0 00-3.48 21.46c.55.09.73-.28.73-.55v-1.84c-3.03.64-3.67-1.46-3.67-1.46-.55-1.29-1.28-1.65-1.28-1.65-.92-.65.1-.65.1-.65 1.1 0 1.73 1.1 1.73 1.1.92 1.65 2.57 1.2 3.21.92a2 2 0 01.64-1.47c-2.47-.27-5.04-1.19-5.04-5.5 0-1.1.46-2.1 1.2-2.84a3.76 3.76 0 010-2.93s.91-.28 3.11 1.1c1.8-.49 3.7-.49 5.5 0 2.1-1.38 3.02-1.1 3.02-1.1a3.76 3.76 0 010 2.93c.83.74 1.2 1.74 1.2 2.94 0 4.21-2.57 5.13-5.04 5.4.45.37.82.92.82 2.02v3.03c0 .27.1.64.73.55A11 11 0 0012 1.27"></path></svg></a>
+    </div>
+        &nbsp;
     </div>
 
 </body>

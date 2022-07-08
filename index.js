@@ -488,11 +488,15 @@ function updatePickerDetails() {
     const bestDeadlineLog = Math.log2(Number(Picker.best.deadline)).toFixed(2)
     const lastWinnerDeadlineLog = Math.log2(Number(Picker.stats.lastWinnerDeadline)).toFixed(2)
     document.getElementById("current_height").innerText = Picker.stats.currentHeight
-    document.getElementById("best_deadline").innerText = `${Picker.best.deadline} (${bestDeadlineLog} bits)`
-    document.getElementById("best_sender").innerText = idTOaccount(Picker.best.sender)
+    if (Picker.best.sender === 0n) {
+        document.getElementById("best_sender").innerText = 'None submitted'
+    } else {
+        document.getElementById("best_sender").innerText = idTOaccount(Picker.best.sender)
+    }
+    document.getElementById("best_deadline").innerText = bestDeadlineLog
     document.getElementById("last_mining_intensity").innerText = ((Number(Picker.stats.lastOverallMiningFactor)/100000000) * 0.32).toFixed(2)
     document.getElementById("last_winner_account").innerText = idTOaccount(Picker.stats.lastWinnerId)
-    document.getElementById("last_winner_deadline").innerText = `${Picker.stats.lastWinnerDeadline} (${lastWinnerDeadlineLog} bits)`
+    document.getElementById("last_winner_deadline").innerText = lastWinnerDeadlineLog
     document.getElementById("last_forging_blockheight").innerText = Picker.forgeTokens.lastForging
 }
 
@@ -548,7 +552,7 @@ function idTOaccount(id) {
     let alphabet = "23456789ABCDEFGHJKLMNPQRSTUVWXYZ".split("")
     let base32alpha="0123456789abcdefghijklmnopqrstuv"
     let base32Length = 13
-    let account = "S-"
+    let account = "TS-"
     let i;
     
     function gmult(a, b) {
