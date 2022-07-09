@@ -1,24 +1,27 @@
 "use strict";
 
 const Config = {
-    defaultServer: 'https://cryptodefrag.com:6876',
-    SmartContractId: 8749786126809286749n,
+    defaultServer: 'https://cryptodefrag.com:8125',
+    SmartContractId: 18339269626061634110n,
     SmartContractRS: "",
     authorisedCodeHash: 5817622329198284865n,
-    assetId: "15297368334901195317",
+    assetId: "8262145177475475524",
     serverAlternatives: [
-        "https://cryptodefrag.com:6876",
-        "https://europe3.testnet.signum.network",
-        "http://localhost:6876"
+        "https://brazil.signum.network",
+        "https://uk.signum.network",
+        "https://cryptodefrag.com:8125",
+        "https://europe.signum.network",
+        "https://australia.signum.network",
+        "http://localhost:8125"
     ],
     MinerContractArgs: {
         feePlanck: '10000000',
         activationAmountPlanck: '50000000',
         description: "TMG miner contract for The Mining Game",
         name: "TMGminer",
-        referencedTransactionHash: "7ab1ed13566118fb8f36c05e25963d184875b4f0651d234f754161da5fd88059",
+        referencedTransactionHash: "f0c36f552dec58799a21eb30004c9bdd35512f04977cc1a74f06030992a1499f",
         data: [
-            '0', '0', '0', '1', '100000000', '0', '8749786126809286749', '32000000',
+            '0', '0', '0', '1', '100000000', '0', '18339269626061634110', '32000000',
             '8', '10', '15', '16', '32', '46', '48', '57',
             '255', '100000000', '0', '0', '0', '22'
         ]
@@ -255,8 +258,8 @@ async function activateWalletXT(silent) {
     Global.wallet = new sig$wallets.GenericExtensionWallet();
     try {
         Global.walletResponse = await Global.wallet.connect({
-            appName: "The Mining Game TESTNET",
-            networkName: "Signum-TESTNET"
+            appName: "The Mining Game",
+            networkName: "Signum"
         })
         Global.walletSubscription = Global.walletResponse.listen({
             onAccountChanged: (newVal) => {
@@ -265,6 +268,7 @@ async function activateWalletXT(silent) {
                 localStorage.setItem('userHasXT', 'true');
                 Global.walletResponse.publicKey = newVal.accountPublicKey;
                 updateLinkedAccount();
+                updatePlayerDetailsAndContract();
             }
         })
         localStorage.setItem('userRS', idTOaccount(BigInt(Global.walletResponse.accountId)));
@@ -552,7 +556,7 @@ function idTOaccount(id) {
     let alphabet = "23456789ABCDEFGHJKLMNPQRSTUVWXYZ".split("")
     let base32alpha="0123456789abcdefghijklmnopqrstuv"
     let base32Length = 13
-    let account = "TS-"
+    let account = "S-"
     let i;
     
     function gmult(a, b) {
