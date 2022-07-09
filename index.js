@@ -1,7 +1,7 @@
 "use strict";
 
 const Config = {
-    defaultServer: 'https://cryptodefrag.com:8125',
+    defaultServer: 'https://signawallet.notallmine.net',
     SmartContractId: 18339269626061634110n,
     SmartContractRS: "",
     authorisedCodeHash: 5817622329198284865n,
@@ -12,7 +12,7 @@ const Config = {
         "https://cryptodefrag.com:8125",
         "https://europe.signum.network",
         "https://australia.signum.network",
-        "http://localhost:8125"
+        "https://signawallet.notallmine.net"
     ],
     MinerContractArgs: {
         feePlanck: '10000000',
